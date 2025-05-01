@@ -7,14 +7,14 @@ cmds = [
 
 [phases.build]
 cmds = [
-  "cd frontend && npm run build",
+  "cd frontend && NEXT_PUBLIC_SUPABASE_URL=${NEXT_PUBLIC_SUPABASE_URL} NEXT_PUBLIC_SUPABASE_ANON_KEY=${NEXT_PUBLIC_SUPABASE_ANON_KEY} npm run build",
   "cd backend && source /app/venv/bin/activate && python -m pytest || true"
 ]
 
 [phases.setup]
 nixPkgs = [
   "python311",
-  "nodejs_20",  # Corrected name for Node.js 20
+  "nodejs_20",
   "redis",
   "chromium"
 ]
@@ -27,8 +27,3 @@ PYTHONPATH = "/app/backend"
 NODE_ENV = "production"
 NEXT_PUBLIC_URL = "${PUBLIC_URL}"
 PLAYWRIGHT_BROWSERS_PATH = "/nix/store"
-
-[phases.prepare]
-cmds = [
-  "mkdir -p /tmp/playwright"
-]
