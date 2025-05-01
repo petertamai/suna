@@ -15,9 +15,7 @@ nixPkgs = [
   "python311",
   "nodejs-18_x",
   "redis",
-  "chromium",
-  "playwright",
-  "playwright-driver"
+  "chromium"
 ]
 
 [start]
@@ -31,7 +29,9 @@ PLAYWRIGHT_BROWSERS_PATH = "/nix/store"
 
 [phases.prepare]
 cmds = [
-  "mkdir -p /tmp/playwright"
+  "mkdir -p /tmp/playwright",
+  "pip install playwright",
+  "python -m playwright install"
 ]
 
 [phases.prepare.env]
