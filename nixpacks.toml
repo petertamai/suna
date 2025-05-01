@@ -1,26 +1,26 @@
 [phases.install]
 cmds = [
-  "pip install -r backend/requirements.txt",
+  "python -m venv /app/venv",
+  "source /app/venv/bin/activate && pip install -r backend/requirements.txt",
   "cd frontend && npm install"
 ]
 
 [phases.build]
 cmds = [
   "cd frontend && npm run build",
-  "cd backend && python -m pytest || true"
+  "cd backend && source /app/venv/bin/activate && python -m pytest || true"
 ]
 
 [phases.setup]
 nixPkgs = [
   "python311",
-  "python311Packages.pip",
   "nodejs-18_x",
   "redis",
   "chromium"
 ]
 
 [start]
-cmd = "cd backend && python api.py & cd frontend && npm start"
+cmd = "cd backend && source /app/venv/bin/activate && python api.py & cd frontend && npm start"
 
 [phases.setup.env]
 PYTHONPATH = "/app/backend"
