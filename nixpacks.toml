@@ -29,10 +29,5 @@ PLAYWRIGHT_BROWSERS_PATH = "/nix/store"
 
 [phases.prepare]
 cmds = [
-  "mkdir -p /tmp/playwright",
-  "pip install playwright",
-  "python -m playwright install"
+  "mkdir -p /tmp/playwright"
 ]
-
-[phases.prepare.env]
-PLAYWRIGHT_BROWSERS_PATH = "/tmp/playwright"
