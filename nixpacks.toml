@@ -33,7 +33,28 @@ PLAYWRIGHT_BROWSERS_PATH = "/nix/store"
 [phases.prepare]
 cmds = [
   "mkdir -p /tmp/playwright",
-  "printf '[supervisord]\nnodaemon=true\n\n[program:backend]\ncommand=python /app/backend/api.py\ndirectory=/app\nautostart=true\nautorestart=true\nstderr_logfile=/dev/stdout\nstderr_logfile_maxbytes=0\nstdout_logfile=/dev/stdout\nstdout_logfile_maxbytes=0\n\n[program:frontend]\ncommand=npm start\ndirectory=/app/frontend\nautostart=true\nautorestart=true\nstderr_logfile=/dev/stdout\nstderr_logfile_maxbytes=0\nstdout_logfile=/dev/stdout\nstdout_logfile_maxbytes=0\n' > /app/supervisor.conf"
+  "echo '[supervisord]' > /app/supervisor.conf",
+  "echo 'nodaemon=true' >> /app/supervisor.conf",
+  "echo '' >> /app/supervisor.conf",
+  "echo '[program:backend]' >> /app/supervisor.conf",
+  "echo 'command=python /app/backend/api.py' >> /app/supervisor.conf",
+  "echo 'directory=/app' >> /app/supervisor.conf",
+  "echo 'autostart=true' >> /app/supervisor.conf",
+  "echo 'autorestart=true' >> /app/supervisor.conf",
+  "echo 'stderr_logfile=/dev/stdout' >> /app/supervisor.conf",
+  "echo 'stderr_logfile_maxbytes=0' >> /app/supervisor.conf",
+  "echo 'stdout_logfile=/dev/stdout' >> /app/supervisor.conf",
+  "echo 'stdout_logfile_maxbytes=0' >> /app/supervisor.conf",
+  "echo '' >> /app/supervisor.conf",
+  "echo '[program:frontend]' >> /app/supervisor.conf",
+  "echo 'command=npm start' >> /app/supervisor.conf",
+  "echo 'directory=/app/frontend' >> /app/supervisor.conf",
+  "echo 'autostart=true' >> /app/supervisor.conf",
+  "echo 'autorestart=true' >> /app/supervisor.conf",
+  "echo 'stderr_logfile=/dev/stdout' >> /app/supervisor.conf",
+  "echo 'stderr_logfile_maxbytes=0' >> /app/supervisor.conf",
+  "echo 'stdout_logfile=/dev/stdout' >> /app/supervisor.conf",
+  "echo 'stdout_logfile_maxbytes=0' >> /app/supervisor.conf"
 ]
 
 [phases.prepare.env]
