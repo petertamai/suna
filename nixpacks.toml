@@ -22,7 +22,7 @@ nixPkgs = [
 ]
 
 [start]
-cmd = "supervisord -n -c supervisor.conf"
+cmd = "supervisord -n -c /app/supervisor.conf"
 
 [phases.setup.env]
 PYTHONPATH = "/app/backend"
@@ -33,7 +33,7 @@ PLAYWRIGHT_BROWSERS_PATH = "/nix/store"
 [phases.prepare]
 cmds = [
   "mkdir -p /tmp/playwright",
-  "echo '[supervisord]\nnodaemon=true\n\n[program:backend]\ncommand=python /app/backend/api.py\ndirectory=/app\nautostart=true\nautorestart=true\nstderr_logfile=/dev/stdout\nstderr_logfile_maxbytes=0\nstdout_logfile=/dev/stdout\nstdout_logfile_maxbytes=0\n\n[program:frontend]\ncommand=npm start\ndirectory=/app/frontend\nautostart=true\nautorestart=true\nstderr_logfile=/dev/stdout\nstderr_logfile_maxbytes=0\nstdout_logfile=/dev/stdout\nstdout_logfile_maxbytes=0\n' > supervisor.conf"
+  "printf '[supervisord]\nnodaemon=true\n\n[program:backend]\ncommand=python /app/backend/api.py\ndirectory=/app\nautostart=true\nautorestart=true\nstderr_logfile=/dev/stdout\nstderr_logfile_maxbytes=0\nstdout_logfile=/dev/stdout\nstdout_logfile_maxbytes=0\n\n[program:frontend]\ncommand=npm start\ndirectory=/app/frontend\nautostart=true\nautorestart=true\nstderr_logfile=/dev/stdout\nstderr_logfile_maxbytes=0\nstdout_logfile=/dev/stdout\nstdout_logfile_maxbytes=0\n' > /app/supervisor.conf"
 ]
 
 [phases.prepare.env]
