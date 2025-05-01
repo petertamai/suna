@@ -14,7 +14,7 @@ cmds = [
 [phases.setup]
 nixPkgs = [
   "python311",
-  "nodejs-20_x",  # Updated to Node.js 20.x instead of 18.x
+  "nodejs_20",  # Corrected name for Node.js 20
   "redis",
   "chromium"
 ]
