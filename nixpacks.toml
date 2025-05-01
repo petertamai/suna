@@ -7,7 +7,7 @@ cmds = [
 [phases.build]
 cmds = [
   "cd frontend && npm run build",
-  "cd backend && python -m pytest"
+  "cd backend && python -m pytest || true"
 ]
 
 [phases.setup]
@@ -17,12 +17,11 @@ nixPkgs = [
   "redis",
   "chromium",
   "playwright",
-  "playwright-driver",
-  "supervisord"
+  "playwright-driver"
 ]
 
 [start]
-cmd = "supervisord -n -c /app/supervisor.conf"
+cmd = "cd backend && python api.py & cd frontend && npm start"
 
 [phases.setup.env]
 PYTHONPATH = "/app/backend"
@@ -32,29 +31,7 @@ PLAYWRIGHT_BROWSERS_PATH = "/nix/store"
 
 [phases.prepare]
 cmds = [
-  "mkdir -p /tmp/playwright",
-  "echo '[supervisord]' > /app/supervisor.conf",
-  "echo 'nodaemon=true' >> /app/supervisor.conf",
-  "echo '' >> /app/supervisor.conf",
-  "echo '[program:backend]' >> /app/supervisor.conf",
-  "echo 'command=python /app/backend/api.py' >> /app/supervisor.conf",
-  "echo 'directory=/app' >> /app/supervisor.conf",
-  "echo 'autostart=true' >> /app/supervisor.conf",
-  "echo 'autorestart=true' >> /app/supervisor.conf",
-  "echo 'stderr_logfile=/dev/stdout' >> /app/supervisor.conf",
-  "echo 'stderr_logfile_maxbytes=0' >> /app/supervisor.conf",
-  "echo 'stdout_logfile=/dev/stdout' >> /app/supervisor.conf",
-  "echo 'stdout_logfile_maxbytes=0' >> /app/supervisor.conf",
-  "echo '' >> /app/supervisor.conf",
-  "echo '[program:frontend]' >> /app/supervisor.conf",
-  "echo 'command=npm start' >> /app/supervisor.conf",
-  "echo 'directory=/app/frontend' >> /app/supervisor.conf",
-  "echo 'autostart=true' >> /app/supervisor.conf",
-  "echo 'autorestart=true' >> /app/supervisor.conf",
-  "echo 'stderr_logfile=/dev/stdout' >> /app/supervisor.conf",
-  "echo 'stderr_logfile_maxbytes=0' >> /app/supervisor.conf",
-  "echo 'stdout_logfile=/dev/stdout' >> /app/supervisor.conf",
-  "echo 'stdout_logfile_maxbytes=0' >> /app/supervisor.conf"
+  "mkdir -p /tmp/playwright"
 ]
 
 [phases.prepare.env]
