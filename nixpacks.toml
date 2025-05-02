@@ -7,8 +7,7 @@ cmds = [
 
 [phases.build]
 cmds = [
-  "cd backend && source /app/venv/bin/activate && python -m pytest || true",
-  "cd frontend && npm run build || true"
+  "cd backend && source /app/venv/bin/activate && python -m pytest || true"
 ]
 
 [phases.setup]
@@ -20,7 +19,7 @@ nixPkgs = [
 ]
 
 [start]
-cmd = "cd backend && source /app/venv/bin/activate && python api.py & cd frontend && npm run dev"
+cmd = "cd backend && source /app/venv/bin/activate && python api.py & cd frontend && NEXT_PUBLIC_SUPABASE_URL=$SUPABASE_URL NEXT_PUBLIC_SUPABASE_ANON_KEY=$SUPABASE_ANON_KEY npm run dev"
 
 [phases.setup.env]
 PYTHONPATH = "/app/backend"
