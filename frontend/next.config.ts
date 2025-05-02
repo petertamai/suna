@@ -13,6 +13,13 @@ const nextConfig: NextConfig = {
     
     return config;
   },
+  // Add this section to resolve the cross-origin warning
+  experimental: {
+    allowedDevOrigins: [
+      'https://main-sunai.jml2s5.easypanel.host',
+      'main-sunai.jml2s5.easypanel.host'
+    ],
+  },
 };
 
 export default nextConfig;
